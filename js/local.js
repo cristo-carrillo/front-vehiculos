@@ -21,7 +21,7 @@ async function login(){
     //console.log(await request.text());
     if(request.ok){
         const respuesta = await request.json();
-        localStorage.token = respuesta.data.Token;
+        localStorage.token = respuesta.data.token;
 
         //localStorage.token = respuesta;
         localStorage.email = jsonData.email;      
@@ -30,13 +30,23 @@ async function login(){
 }
 
 function listar(){
+    var nameListUser = `<i class="fa-solid fa-users"></i> List of Users`;
+    document.getElementById("nameList").innerHTML = nameListUser;
+    var headerListUsers = `<tr>
+    <th scope="col">#</th>
+    <th scope="col">First Name</th>
+    <th scope="col">Last Name</th>
+    <th scope="col">Email</th>
+    <th scope="col">Action</th>
+  </tr>`;
+  document.getElementById("headerListar").innerHTML = headerListUsers;
     validaToken();
     var settings={
         method: 'GET',
         headers:{
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': localStorage.Token
+            'Authorization': localStorage.token
         },
     }
     fetch(urlApi+"/user",settings)
@@ -45,7 +55,6 @@ function listar(){
         
             var usuarios = '';
             for(const usuario of users.data){
-                //console.log(usuario.email)
                 usuarios += `
                 <tr>
                     <th scope="row">${usuario.id}</th>
@@ -68,15 +77,29 @@ function listar(){
 }
 
 function listarCars(){
+    var nameListCar = `<i class="fa-solid fa-car"></i> List of Cars`;
+    document.getElementById("nameList").innerHTML = nameListCar;
+    var headerListCars = `<tr>
+    <th scope="col">#</th>
+    <th scope="col">Brand</th>
+    <th scope="col">Model</th>
+    <th scope="col">Color</th>
+    <th scope="col">Model Year</th>
+    <th scope="col">Price</th>
+    <th scope="col">User</th>
+    <th scope="col">Action</th>
+  </tr>`;
+  document.getElementById("headerListar").innerHTML = headerListCars;
     validaToken();
     var settings={
         method: 'GET',
         headers:{
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer '+localStorage.Token
+            'Authorization': 'Bearer '+localStorage.token
         },
     }
+    console.log(localStorage.Token);
     fetch(urlApi+"/api/v1/car",settings)
     .then(response => response.json())
     .then(function(cars){
@@ -117,7 +140,7 @@ function eliminaUsuario(id){
         headers:{
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': localStorage.Token
+            'Authorization': localStorage.token
         },
     }
     fetch(urlApi+"/api/users/"+id,settings)
@@ -135,7 +158,7 @@ function verModificarUsuario(id){
         headers:{
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': localStorage.Token
+            'Authorization': localStorage.token
         },
     }
     fetch(urlApi+"/user/"+id,settings)
@@ -183,7 +206,7 @@ async function modificarUsuario(id){
         headers:{
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': localStorage.Token
+            'Authorization': localStorage.token
         },
         body: JSON.stringify(jsonData)
     });
