@@ -67,6 +67,49 @@ function listar(){
     })
 }
 
+function listarCars(){
+    validaToken();
+    var settings={
+        method: 'GET',
+        headers:{
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+localStorage.Token
+        },
+    }
+    fetch(urlApi+"/api/v1/car",settings)
+    .then(response => response.json())
+    .then(function(cars){
+        
+            var carsBody = '';
+            for(const car of cars.data){
+                //console.log(usuario.email)
+                carsBody += `
+                <tr>
+                    <th scope="row">${car.id}</th>
+                    <td>${car.brand}</td>
+                    <td>${car.model}</td>
+                    <td>${car.color}</td>
+                    <td>${car.modelYear}</td>
+                    <td>${car.price}</td>
+                    <td>${car.user.firstName}</td>
+                    <td>
+                    <a href="#" onclick="verModificarUsuario('${car.id}')" class="btn btn-outline-warning">
+                        <i class="fa-solid fa-user-pen"></i>
+                    </a>
+                    <a href="#" onclick="verUsuario('${car.id}')" class="btn btn-outline-info">
+                        <i class="fa-solid fa-eye"></i>
+                    </a>
+                    </td>
+                </tr>`;
+                
+            }
+            document.getElementById("listar").innerHTML = carsBody;
+    })
+}
+
+
+
 function eliminaUsuario(id){
     validaToken();
     var settings={
