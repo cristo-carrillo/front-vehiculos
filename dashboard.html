@@ -46,13 +46,7 @@
                   <a href="#" onclick="registerForm()" class="btn btn-outline-success"><i class="fa-solid fa-circle-plus"></i></a>
                   <table class="table">
                     <thead id = "headerListar">
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Action</th>
-                      </tr>
+
                     </thead>
                     <tbody id="listar">
 
@@ -63,6 +57,7 @@
           </div>
           
         <script src="js/local.js"></script>
+        <script src="js/car.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script>
           listar();
@@ -78,24 +73,6 @@
               </div>
               <div class="modal-body" id="contentModal">
                 ...
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal confirmacion eliminar-->
-        <div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Want to delete the record?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body" id="contenidoConfirmacion">
-                
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                <button type="button" class="btn btn-primary" id="confirmar">Sí</button>
               </div>
             </div>
           </div>
