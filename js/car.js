@@ -25,7 +25,7 @@ function listarCars() {
                     <td>${car.modelYear}</td>
                     <td>${car.price}</td>
                     <td>${car.user.email}</td>
-                    <td class="${car.availability?textSuccess:textDanger}">${car.availability}</td>
+                    <td class="${car.availability ? textSuccess : textDanger}">${car.availability}</td>
                     <td>
                     <a href="#" onclick="verModificarCarro('${car.id}')" class="btn btn-outline-warning">
                     <i class="fa-solid fa-pen-to-square"></i>
@@ -41,7 +41,7 @@ function listarCars() {
         })
 }
 
-function headerListCars(){
+function headerListCars() {
     return `<tr>
     <th scope="col">#</th>
     <th scope="col">Brand</th>
@@ -55,7 +55,7 @@ function headerListCars(){
   </tr>`;
 }
 
-function headerPetition(){
+function headerPetition() {
     return {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -119,13 +119,17 @@ async function registerCar() {
     for (var [k, v] of formData) {//convertimos los datos a json
         jsonData[k] = v;
     }
-    const request = await fetch(urlApi + "/api/v1/car", {
+    await fetch(urlApi + "/api/v1/car", {
         method: 'POST',
         headers: headerPetition(),
         body: JSON.stringify(jsonData)
+    }).then(function (rp) {
+        responseStatus = rp.status;
+        return rp.json();
+    }).then(function (response) {
+        alertas(response.message, responseStatus >= 400 ? 2 : 1);
     });
     listarCars();
-    alertas("Se ha registrado el Vehiculo exitosamente!", 1)
     document.getElementById("contentModal").innerHTML = '';
     var myModalEl = document.getElementById('modalUsuario');
     var modal = bootstrap.Modal.getInstance(myModalEl); // Returns a Bootstrap modal instance
@@ -166,7 +170,7 @@ function verModificarCarro(id) {
                     <label for="availability" class="form-label">Availability</label>
                     <select name="availability" id="availability" class="form-select"> 
                         <option value="${car.availability}" selected>${car.availability}</option>
-                        <option value="${car.availability?false:true}">${car.availability?false:true}</option>
+                        <option value="${car.availability ? false : true}">${car.availability ? false : true}</option>
                     </select>
                     <br>
                     <button type="button" class="btn btn-outline-warning" 
